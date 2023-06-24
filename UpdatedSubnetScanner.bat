@@ -4,6 +4,8 @@ setlocal EnableDelayedExpansion
 rem Constants
 set INDEX_MIN_VALUE=1
 set INDEX_MAX_VALUE=255
+set PING_LIFETIME=1500
+set PING_SIZE=8
 
 rem Checking to see if the script is being run as a thread or as a standalone utility
 set threadCheck=%~1
@@ -21,7 +23,7 @@ set saveDir=%~f3
 if NOT DEFINED address set /p address=Enter the portion of an IP address (Ex. 142.251.33.): 
 
 rem This ping statement tests the passed IP address
-ping /n 1 /l 16 %address%1 > nul
+ping /n 1 /l %PING_SIZE% %address%1 > nul
 if ERRORLEVEL 1 (
     rem This echo statement generates a new line
     echo:
@@ -111,7 +113,7 @@ rem The scan functions abuses the AND ("&" and "&&") logic in batch files
 if %index% LEQ %INDEX_MAX_VALUE% (
     set /a index="%index% + 1"
     echo Iteration %index%
-    ping %address%%index% /n 1 /w 2000 > "%address%%index%.txt" && goto singleThreadScan & del "%address%%index%.txt"
+    ping %address%%index% /n 1 /l %PING_SIZE% /w %PING_LIFETIME% > "%address%%index%.txt" && goto singleThreadScan & del "%address%%index%.txt"
     goto singleThreadScan
 )
 
@@ -128,6 +130,6 @@ if %index% LEQ %3 (
     set /a index="%index% + 1"
     echo Iteration %index%
     rem abusing logic in the below two lines
-    ping %address%%index% /n 1 /l 16 /w 2000 > "%address%%index%.txt" && goto threadedScanConditional & del "%address%%index%.txt"
+    ping %address%%index% /n 1 /l %PING_SIZE% /l 16 /w %PING_LIFETIME% > "%address%%index%.txt" && goto threadedScanConditional & del "%address%%index%.txt"
     goto threadedScanConditional
 )

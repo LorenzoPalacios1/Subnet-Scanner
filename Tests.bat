@@ -26,3 +26,8 @@ call UpdatedSubnetScanner 127.0.0. 300 TestDir Y
 
 echo - Malformed Save Directory -
 call UpdatedSubnetScanner 127.0.0. 5 ";" Y
+
+echo - Cleanup Utility Testing -
+for /l %%i in (1,1,100) do (
+    echo unreachable > "%testSaveDir%\%%i.txt"
+)
