@@ -89,6 +89,6 @@ echo Finished
 
 exit /b
 
-rem The scan functions abuses the AND ("&" and "&&") logic in batch files
+rem The scan function abuses the AND ("&" and "&&") logic in batch files
 :singletonScan
-    ping %address%%2 /n 1 /l 8 /w %PING_LIFETIME% > "%address%%2.txt" && exit & del "%address%%2.txt"
+    ping %address%2 /n 1 /l 8 /w %PING_LIFETIME% > "%address%2.txt" && exit & del "%address%2.txt"
