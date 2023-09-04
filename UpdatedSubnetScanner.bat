@@ -20,7 +20,7 @@ set index=%2
 set saveDir=%~f3
 
 :getAddress
-if NOT DEFINED address set /p address=Enter the portion of an IP address (Ex. 127.0.0.): 
+if NOT DEFINED address set /p address=Enter the portion of an IP address (Ex. 142.251.33.): 
 
 rem This ping statement tests the passed IP address
 ping /n 1 /l %PING_SIZE% %address%1 > nul
